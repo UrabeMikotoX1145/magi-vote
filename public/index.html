@@ -2,26 +2,52 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>MAGI SYSTEM — 决议投票</title>
   <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
-  <div class="hazard-top" aria-hidden="true"></div>
   <div class="scanlines" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <div class="hazard-top" aria-hidden="true"></div>
+
+  <aside class="alert-bar" id="alertBar" data-state="standby" role="status" aria-live="polite">
+    <span class="alert-blink" aria-hidden="true"></span>
+    <span class="alert-code" id="alertCode">SYS.STANDBY</span>
+    <span class="alert-msg" id="alertMsg">MAGI 待机 · 等待议题输入</span>
+    <span class="alert-clock" id="alertClock" aria-hidden="true"></span>
+  </aside>
 
   <header class="header">
-    <div class="brand">
-      <span class="nerv">NERV</span>
-      <span class="sep">/</span>
-      <span class="magi-title">MAGI SYSTEM</span>
+    <div class="header-left">
+      <svg class="magi-mark" viewBox="0 0 48 48" width="40" height="40" aria-hidden="true">
+        <polygon points="24,4 44,16 44,32 24,44 4,32 4,16" fill="none" stroke="currentColor" stroke-width="2"/>
+        <polygon points="24,12 36,19 36,29 24,36 12,29 12,19" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.55"/>
+        <circle cx="24" cy="24" r="3" fill="currentColor"/>
+      </svg>
+      <div class="brand-block">
+        <div class="brand">
+          <span class="nerv">NERV</span>
+          <span class="sep">/</span>
+          <span class="magi-title">MAGI SYSTEM</span>
+        </div>
+        <div class="subtitle">三机决议终端 · MELCHIOR-1 · BALTHASAR-2 · CASPER-3</div>
+      </div>
     </div>
-    <div class="subtitle">三机决议 · MELCHIOR · BALTHASAR · CASPER</div>
+    <div class="header-meta" aria-hidden="true">
+      <div class="meta-row"><span class="meta-k">SEC</span><span class="meta-v">UNCLASS</span></div>
+      <div class="meta-row"><span class="meta-k">NODE</span><span class="meta-v">GEOFRONT-01</span></div>
+    </div>
   </header>
 
   <main class="main">
-    <section class="panel input-panel">
-      <label class="label" for="question">议题输入 / QUERY</label>
+    <section class="panel input-panel hud-frame">
+      <div class="panel-head">
+        <span class="panel-tag">INPUT</span>
+        <span class="panel-title">议题输入 / QUERY</span>
+      </div>
+      <label class="sr-only" for="question">议题输入</label>
       <textarea
         id="question"
         rows="4"
@@ -29,28 +55,82 @@
         placeholder="输入需要 MAGI 表决的问题……"
       ></textarea>
       <div class="actions">
-        <button type="button" id="voteBtn" class="btn primary">发起决议</button>
+        <button type="button" id="voteBtn" class="btn primary">
+          <span class="btn-glyph" aria-hidden="true">&#9654;</span>
+          发起决议
+        </button>
         <span id="status" class="status" aria-live="polite"></span>
       </div>
     </section>
 
-    <section class="panel result-panel" id="resultPanel" hidden>
-      <div class="decision-banner" id="decisionBanner">
-        <span class="decision-label">决议结果</span>
-        <span class="decision-value" id="decisionValue">—</span>
-      </div>
+    <section class="sages" id="sages" aria-label="MAGI 三机">
+      <article class="magi-card idle" data-sage="melchior" id="card-melchior">
+        <div class="card-corner tl" aria-hidden="true"></div>
+        <div class="card-corner tr" aria-hidden="true"></div>
+        <div class="card-corner bl" aria-hidden="true"></div>
+        <div class="card-corner br" aria-hidden="true"></div>
+        <header class="card-head">
+          <span class="sage-id">01</span>
+          <div>
+            <div class="magi-name">MELCHIOR-1</div>
+            <div class="magi-role">逻辑 / 证据</div>
+          </div>
+          <span class="sage-lamp" aria-hidden="true"></span>
+        </header>
+        <div class="magi-vote" data-field="vote">—</div>
+        <div class="magi-reason" data-field="reason">待机中</div>
+      </article>
 
-      <div class="magi-grid" id="magiGrid">
-        <!-- cards filled by JS -->
-      </div>
+      <article class="magi-card idle" data-sage="balthasar" id="card-balthasar">
+        <div class="card-corner tl" aria-hidden="true"></div>
+        <div class="card-corner tr" aria-hidden="true"></div>
+        <div class="card-corner bl" aria-hidden="true"></div>
+        <div class="card-corner br" aria-hidden="true"></div>
+        <header class="card-head">
+          <span class="sage-id">02</span>
+          <div>
+            <div class="magi-name">BALTHASAR-2</div>
+            <div class="magi-role">伦理 / 情感</div>
+          </div>
+          <span class="sage-lamp" aria-hidden="true"></span>
+        </header>
+        <div class="magi-vote" data-field="vote">—</div>
+        <div class="magi-reason" data-field="reason">待机中</div>
+      </article>
 
+      <article class="magi-card idle" data-sage="casper" id="card-casper">
+        <div class="card-corner tl" aria-hidden="true"></div>
+        <div class="card-corner tr" aria-hidden="true"></div>
+        <div class="card-corner bl" aria-hidden="true"></div>
+        <div class="card-corner br" aria-hidden="true"></div>
+        <header class="card-head">
+          <span class="sage-id">03</span>
+          <div>
+            <div class="magi-name">CASPER-3</div>
+            <div class="magi-role">落地 / 可行</div>
+          </div>
+          <span class="sage-lamp" aria-hidden="true"></span>
+        </header>
+        <div class="magi-vote" data-field="vote">—</div>
+        <div class="magi-reason" data-field="reason">待机中</div>
+      </article>
+    </section>
+
+    <section class="panel result-panel hud-frame" id="resultPanel" hidden>
+      <div class="decision-banner" id="decisionBanner" data-state="idle">
+        <div class="decision-stripes" aria-hidden="true"></div>
+        <div class="decision-body">
+          <span class="decision-label">决议结果 / DECISION</span>
+          <span class="decision-value" id="decisionValue">—</span>
+        </div>
+      </div>
       <div class="counts" id="counts"></div>
     </section>
   </main>
 
   <footer class="footer">
     <div class="hazard-bottom" aria-hidden="true"></div>
-    <p>非官方同人界面 · CSS 自制 · DeepSeek 驱动 · 请勿用于真实军事/绝密决策</p>
+    <p>非官方同人界面 · CSS / SVG 自制 · DeepSeek 驱动 · 请勿用于真实军事/绝密决策</p>
   </footer>
 
   <script src="/app.js"></script>
