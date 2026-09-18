@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MAGI SYSTEM — 决议投票</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="hazard-top" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <header class="header">
+    <div class="brand">
+      <span class="nerv">NERV</span>
+      <span class="sep">/</span>
+      <span class="magi-title">MAGI SYSTEM</span>
+    </div>
+    <div class="subtitle">三机决议 · MELCHIOR · BALTHASAR · CASPER</div>
+  </header>
+
+  <main class="main">
+    <section class="panel input-panel">
+      <label class="label" for="question">议题输入 / QUERY</label>
+      <textarea
+        id="question"
+        rows="4"
+        maxlength="2000"
+        placeholder="输入需要 MAGI 表决的问题……"
+      ></textarea>
+      <div class="actions">
+        <button type="button" id="voteBtn" class="btn primary">发起决议</button>
+        <span id="status" class="status" aria-live="polite"></span>
+      </div>
+    </section>
+
+    <section class="panel result-panel" id="resultPanel" hidden>
+      <div class="decision-banner" id="decisionBanner">
+        <span class="decision-label">决议结果</span>
+        <span class="decision-value" id="decisionValue">—</span>
+      </div>
+
+      <div class="magi-grid" id="magiGrid">
+        <!-- cards filled by JS -->
+      </div>
+
+      <div class="counts" id="counts"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="hazard-bottom" aria-hidden="true"></div>
+    <p>非官方同人界面 · CSS 自制 · DeepSeek 驱动 · 请勿用于真实军事/绝密决策</p>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>
