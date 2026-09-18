@@ -9,22 +9,57 @@
 <body>
   <div class="scanlines" aria-hidden="true"></div>
   <div class="vignette" aria-hidden="true"></div>
+  <div class="grid-overlay" aria-hidden="true"></div>
 
   <div class="hazard-top" aria-hidden="true"></div>
 
   <aside class="alert-bar" id="alertBar" data-state="standby" role="status" aria-live="polite">
     <span class="alert-blink" aria-hidden="true"></span>
     <span class="alert-code" id="alertCode">SYS.STANDBY</span>
+    <span class="alert-sep" aria-hidden="true">│</span>
+    <span class="alert-kanji" aria-hidden="true">待機</span>
     <span class="alert-msg" id="alertMsg">MAGI 待机 · 等待议题输入</span>
     <span class="alert-clock" id="alertClock" aria-hidden="true"></span>
   </aside>
 
   <header class="header">
     <div class="header-left">
-      <svg class="magi-mark" viewBox="0 0 48 48" width="40" height="40" aria-hidden="true">
-        <polygon points="24,4 44,16 44,32 24,44 4,32 4,16" fill="none" stroke="currentColor" stroke-width="2"/>
-        <polygon points="24,12 36,19 36,29 24,36 12,29 12,19" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.55"/>
-        <circle cx="24" cy="24" r="3" fill="currentColor"/>
+      <!-- Pure-SVG MAGI triad: Melchior / Balthasar / Casper (fan CSS recreation) -->
+      <svg class="magi-triad" viewBox="0 0 120 110" width="72" height="66" role="img" aria-label="MAGI triad Melchior Balthasar Casper">
+        <defs>
+          <filter id="triadGlow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="1.2" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <!-- interconnect lines -->
+        <g class="triad-links" stroke="currentColor" stroke-width="1.2" fill="none" opacity="0.55">
+          <line x1="60" y1="28" x2="32" y2="78"/>
+          <line x1="60" y1="28" x2="88" y2="78"/>
+          <line x1="32" y1="78" x2="88" y2="78"/>
+        </g>
+        <!-- center hub -->
+        <polygon class="triad-hub" points="60,48 68,53 68,63 60,68 52,63 52,53" fill="none" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+        <circle cx="60" cy="58" r="2.5" fill="currentColor" opacity="0.85"/>
+        <!-- Melchior-1 (top) -->
+        <g class="triad-node triad-m" transform="translate(60,22)">
+          <polygon points="0,-16 14,-8 14,8 0,16 -14,8 -14,-8" fill="rgba(255,106,0,0.12)" stroke="currentColor" stroke-width="1.6" filter="url(#triadGlow)"/>
+          <text y="3" text-anchor="middle" font-size="9" font-family="monospace" font-weight="700" fill="currentColor">M</text>
+        </g>
+        <!-- Balthasar-2 (bottom-left) -->
+        <g class="triad-node triad-b" transform="translate(32,82)">
+          <polygon points="0,-16 14,-8 14,8 0,16 -14,8 -14,-8" fill="rgba(255,176,0,0.1)" stroke="currentColor" stroke-width="1.6" filter="url(#triadGlow)"/>
+          <text y="3" text-anchor="middle" font-size="9" font-family="monospace" font-weight="700" fill="currentColor">B</text>
+        </g>
+        <!-- Casper-3 (bottom-right) -->
+        <g class="triad-node triad-c" transform="translate(88,82)">
+          <polygon points="0,-16 14,-8 14,8 0,16 -14,8 -14,-8" fill="rgba(255,106,0,0.1)" stroke="currentColor" stroke-width="1.6" filter="url(#triadGlow)"/>
+          <text y="3" text-anchor="middle" font-size="9" font-family="monospace" font-weight="700" fill="currentColor">C</text>
+        </g>
+        <!-- tiny labels -->
+        <text x="60" y="8" text-anchor="middle" class="triad-lbl" font-size="5.5" font-family="monospace" fill="currentColor" opacity="0.7">MELCHIOR-1</text>
+        <text x="18" y="108" text-anchor="middle" class="triad-lbl" font-size="5" font-family="monospace" fill="currentColor" opacity="0.65">BALTHASAR-2</text>
+        <text x="102" y="108" text-anchor="middle" class="triad-lbl" font-size="5" font-family="monospace" fill="currentColor" opacity="0.65">CASPER-3</text>
       </svg>
       <div class="brand-block">
         <div class="brand">
@@ -32,20 +67,41 @@
           <span class="sep">/</span>
           <span class="magi-title">MAGI SYSTEM</span>
         </div>
-        <div class="subtitle">三机决议终端 · MELCHIOR-1 · BALTHASAR-2 · CASPER-3</div>
+        <div class="subtitle">三机阵列 · 論理 / 倫理 / 実践 · 第３新東京市</div>
+        <div class="subtitle-tech" aria-hidden="true">
+          <span>阵列識別 MAGI-TRIAD-Ω</span>
+          <span class="dot">·</span>
+          <span>同期率 99.7%</span>
+          <span class="dot">·</span>
+          <span>演算核 ONLINE</span>
+        </div>
       </div>
     </div>
     <div class="header-meta" aria-hidden="true">
       <div class="meta-row"><span class="meta-k">SEC</span><span class="meta-v">UNCLASS</span></div>
       <div class="meta-row"><span class="meta-k">NODE</span><span class="meta-v">GEOFRONT-01</span></div>
+      <div class="meta-row"><span class="meta-k">CHNL</span><span class="meta-v">MAGI-BUS-A</span></div>
+      <div class="meta-row"><span class="meta-k">権限</span><span class="meta-v">OPERATOR</span></div>
+      <div class="meta-row"><span class="meta-k">温度</span><span class="meta-v">NOM</span></div>
+      <div class="meta-row meta-amber"><span class="meta-k">状態</span><span class="meta-v">待機中</span></div>
     </div>
   </header>
+
+  <div class="tech-ticker" aria-hidden="true">
+    <span>◆ 中央頭脳管制</span>
+    <span>◆ 論理判定回路 MELCHIOR</span>
+    <span>◆ 感情倫理回路 BALTHASAR</span>
+    <span>◆ 実務判断回路 CASPER</span>
+    <span>◆ 多数決プロトコル ACTIVE</span>
+    <span>◆ 外部リンク DEEPSEEK-BRIDGE</span>
+  </div>
 
   <main class="main">
     <section class="panel input-panel hud-frame">
       <div class="panel-head">
         <span class="panel-tag">INPUT</span>
         <span class="panel-title">议题输入 / QUERY</span>
+        <span class="panel-meta" aria-hidden="true">BUF 2KB · ENC UTF-8 · 入力待機</span>
       </div>
       <label class="sr-only" for="question">议题输入</label>
       <textarea
@@ -63,20 +119,36 @@
       </div>
     </section>
 
+    <!-- Fake MAGI terminal logs (standby / live chrome) -->
+    <section class="panel log-panel hud-frame" id="logPanel" data-mode="standby" aria-label="MAGI 系统日志">
+      <div class="panel-head">
+        <span class="panel-tag panel-tag-amber">LOG</span>
+        <span class="panel-title">系统日志 / SYS.TRACE</span>
+        <span class="panel-meta" aria-hidden="true">SCROLL · LIVE · 擬似出力</span>
+      </div>
+      <div class="log-viewport" id="logViewport">
+        <div class="log-stream" id="logStream" aria-hidden="true"></div>
+      </div>
+    </section>
+
     <section class="sages" id="sages" aria-label="MAGI 三机">
       <article class="magi-card idle" data-sage="melchior" id="card-melchior">
         <div class="card-corner tl" aria-hidden="true"></div>
         <div class="card-corner tr" aria-hidden="true"></div>
         <div class="card-corner bl" aria-hidden="true"></div>
         <div class="card-corner br" aria-hidden="true"></div>
+        <div class="card-watermark" aria-hidden="true">論理</div>
         <header class="card-head">
           <span class="sage-id">01</span>
           <div>
             <div class="magi-name">MELCHIOR-1</div>
-            <div class="magi-role">逻辑 / 证据</div>
+            <div class="magi-role">逻辑 / 证据 · 論理判定</div>
           </div>
           <span class="sage-lamp" aria-hidden="true"></span>
         </header>
+        <div class="card-meta-row" aria-hidden="true">
+          <span>CORE.A</span><span>SYNC OK</span><span>LOAD —</span>
+        </div>
         <div class="magi-vote" data-field="vote">—</div>
         <div class="magi-reason" data-field="reason">待机中</div>
       </article>
@@ -86,14 +158,18 @@
         <div class="card-corner tr" aria-hidden="true"></div>
         <div class="card-corner bl" aria-hidden="true"></div>
         <div class="card-corner br" aria-hidden="true"></div>
+        <div class="card-watermark" aria-hidden="true">倫理</div>
         <header class="card-head">
           <span class="sage-id">02</span>
           <div>
             <div class="magi-name">BALTHASAR-2</div>
-            <div class="magi-role">伦理 / 情感</div>
+            <div class="magi-role">伦理 / 情感 · 感情倫理</div>
           </div>
           <span class="sage-lamp" aria-hidden="true"></span>
         </header>
+        <div class="card-meta-row" aria-hidden="true">
+          <span>CORE.B</span><span>SYNC OK</span><span>LOAD —</span>
+        </div>
         <div class="magi-vote" data-field="vote">—</div>
         <div class="magi-reason" data-field="reason">待机中</div>
       </article>
@@ -103,14 +179,18 @@
         <div class="card-corner tr" aria-hidden="true"></div>
         <div class="card-corner bl" aria-hidden="true"></div>
         <div class="card-corner br" aria-hidden="true"></div>
+        <div class="card-watermark" aria-hidden="true">実践</div>
         <header class="card-head">
           <span class="sage-id">03</span>
           <div>
             <div class="magi-name">CASPER-3</div>
-            <div class="magi-role">落地 / 可行</div>
+            <div class="magi-role">落地 / 可行 · 実務判断</div>
           </div>
           <span class="sage-lamp" aria-hidden="true"></span>
         </header>
+        <div class="card-meta-row" aria-hidden="true">
+          <span>CORE.C</span><span>SYNC OK</span><span>LOAD —</span>
+        </div>
         <div class="magi-vote" data-field="vote">—</div>
         <div class="magi-reason" data-field="reason">待机中</div>
       </article>
@@ -120,7 +200,7 @@
       <div class="decision-banner" id="decisionBanner" data-state="idle">
         <div class="decision-stripes" aria-hidden="true"></div>
         <div class="decision-body">
-          <span class="decision-label">决议结果 / DECISION</span>
+          <span class="decision-label">决议结果 / DECISION · 多数決</span>
           <span class="decision-value" id="decisionValue">—</span>
         </div>
       </div>
